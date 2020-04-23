@@ -1,13 +1,13 @@
-echo ビルドを開始します
+#!/bin/bash -e
+cd "${dirname ${0}}"
+echo Starting build...
 ionic cordova build android --prod --release
-echo ビルドが完了しました 署名を開始します
+echo Build done, signing apk...
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk spila
-echo 署名が完了しました zipalignを開始します
-echo -n コードネームを入力してください :
-read codename
-echo $codename で開始します
-echo ファイル削除
-rm $codename .apk
-echo zipalignコード
-echo "zipalign -v 4 /Users/uparupa/qiitareader-ionic5-rebuild/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk $codename .apk"
-
+echo Signed, aligning apk...
+read -p"Enter code name(apk file name): " codename
+echo Starting with codename: "${codename}"
+echo Deleting file...
+rm "${codename}.apk"
+echo "zipalign code:"
+echo "zipalign -v 4 \"${dirname ${0}}/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk\" \"${codename}.apk\""
