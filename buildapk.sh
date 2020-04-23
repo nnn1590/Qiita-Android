@@ -1,5 +1,5 @@
 #!/bin/bash -e
-cd "$(dirname ${0})"
+cd "$(dirname "${0}")"
 echo Starting build...
 ionic cordova build android --prod --release
 echo Build done, signing apk...
@@ -11,4 +11,4 @@ if [ -e "${codename}.apk" ]; then
 	echo Deleting file...
 	rm "${codename}.apk"
 fi
-zipalign -v 4 "$(dirname ${0})/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk" "${codename}.apk"
+zipalign -v 4 "$(dirname "${0}")/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk" "${codename}.apk"
